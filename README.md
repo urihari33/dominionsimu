@@ -1,2 +1,2 @@
 # dominionsimu
-assetsにある「domisimu」が今編集中のファイル
+Assets/simulate.cs が今編集中のファイルです。
