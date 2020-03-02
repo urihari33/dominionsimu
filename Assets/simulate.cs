@@ -16,9 +16,10 @@ public class simulate : MonoBehaviour
         public bool isCoin;
         public bool isVictory;
         public int priority;
+        public string name;
 
         //カード固有の動作をどう持たせるか未検討(倉庫とか岐路とか)
-        public Card(bool isAction,bool isCoin,bool isVictory,int action,int buy,int coin,int draw,int priority)
+        public Card(bool isAction,bool isCoin,bool isVictory,int action,int buy,int coin,int draw,int priority,string name)
         {
             this.isAction = isAction;
             this.isCoin = isCoin;
@@ -28,6 +29,7 @@ public class simulate : MonoBehaviour
             this.coin = coin;
             this.draw = draw;
             this.priority = priority;
+            this.name = name;
         }
     }
 
@@ -128,12 +130,29 @@ public class simulate : MonoBehaviour
         tempBuy += hand[nownum].buy;
         tempcoin += hand[nownum].coin;
         draw(hand, deck, dispile, hand[nownum].draw);
-        //アクション固有の挙動がまだ定義できていない
+        //アクション固有の挙動
+        effect(hand[nownum].name);
 
         //状態遷移
         inplay.Add(hand[nownum]);
         hand.RemoveAt(nownum);
     }
     //カードをN枚捨てる
+    void discard()
+    {
+
+    }
+
+    //カード効果
+    void effect(string name)
+    {
+        //こんな感じで各アクションの特別効果を作る？
+        //倉庫
+        string warehouse = "warehouse";
+        if(name == warehouse)
+        {
+
+        }
+    }
 
 }
