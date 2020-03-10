@@ -1,9 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class simulate : MonoBehaviour
 {
+    //横断したい変数
+    int tempAction;
+    int tempBuy;
+    int tempCoin;
 
     //カードの構造
     public class Card
@@ -36,6 +41,7 @@ public class simulate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
         
     }
 
@@ -73,12 +79,33 @@ public class simulate : MonoBehaviour
                 List<Card> hand = new List<Card>();
                 List<Card> dispile = new List<Card>();
                 deck = masterdeck;
-                draw(hand, deck, dispile, openhand);
-                //アクション、購入、金量、
-                int tempAction = openaction;
-                int tempBuy = openbuy;
-                int tempCoin = opencoin;
+                Draw(hand, deck, dispile, openhand);
+                //アクション、購入、金量、の初期化
+                tempAction = openaction;
+                tempBuy = openbuy;
+                tempCoin = opencoin;
                 //この後優先度順にプレイしていきたいの
+                while (hand.Count == 0)
+                {
+                    //一旦優先度上限を10とする
+                    for(int pri = 10; pri > -1; pri--)
+                    {
+                        for(int check = 0; check < hand.Count; check++)
+                        {
+                            if(hand[check].priority >= pri)
+                            {
+                                //ターミナルかつアクションならば優先度を1あげる。
+                                if(hand[check].action == 0 && hand[check].isAction)
+                                {
+                                    pri++;
+                                }
+                                Play(inplay, hand, check, deck, dispile);
+                            }
+                         
+                        }
+
+                    }
+                }
             }
         }
         else
@@ -91,7 +118,7 @@ public class simulate : MonoBehaviour
     }
 
     //受け取ったデッキをシャッフルする
-    void shuffle(List<Card> list)
+    void Shuffle(List<Card> list)
     {
         for (int i = 0; i < list.Count; i++)
         {
@@ -103,14 +130,14 @@ public class simulate : MonoBehaviour
         }
     }
     //カードをN枚引く
-    void draw(List<Card> hand,List<Card> deck,List<Card> dispile,int N)
+    void Draw(List<Card> hand,List<Card> deck,List<Card> dispile,int N)
     {
         for(int i = 0; i < N; i++)
         {
             if (deck.Count == 0)
             {
                 deck = dispile;
-                shuffle(deck);
+                Shuffle(deck);
             }
             if (deck.Count > 0)
             {
@@ -123,35 +150,35 @@ public class simulate : MonoBehaviour
     }
 
     //カードをプレイする。
-    void play(List<Card> inplay,List<Card> hand,int nownum,List<Card> deck,List<Card> dispile)
+    void Play(List<Card> inplay,List<Card> hand,int nownum,List<Card> deck,List<Card> dispile)
     {
         //シミュレート用変数のtempが内側にしかない。どうしよう
         tempAction = tempAction + hand[nownum].action - 1;
         tempBuy += hand[nownum].buy;
-        tempcoin += hand[nownum].coin;
-        draw(hand, deck, dispile, hand[nownum].draw);
+        tempCoin += hand[nownum].coin;
+        Draw(hand, deck, dispile, hand[nownum].draw);
         //アクション固有の挙動
-        effect(hand[nownum].name);
+        Effect(hand[nownum].name,inplay,hand,deck,dispile);
 
         //状態遷移
         inplay.Add(hand[nownum]);
         hand.RemoveAt(nownum);
     }
     //カードをN枚捨てる
-    void discard()
+    void Discard()
     {
 
     }
 
-    //カード効果
-    void effect(string name)
+    //カード効果(手札、捨て札、場、デッキがいる)
+    void Effect(string name,List<Card> inplay, List<Card> hand, List<Card> deck, List<Card> dispile)
     {
         //こんな感じで各アクションの特別効果を作る？
         //倉庫
         string warehouse = "warehouse";
         if(name == warehouse)
         {
-
+            //discard3
         }
     }
 
