@@ -5,6 +5,7 @@ using System.Linq;
 using ConsoleApp1.CardInfos;
 using ConsoleApp1.Params;
 using System;
+using ConsoleApp1.CardEffects;
 
 namespace ConsoleApp1
 {
@@ -80,13 +81,8 @@ namespace ConsoleApp1
                 // デッキからランダムで5枚引く
                 for (int j = 0; j < 5; j++)
                 {
-                    var tmpCard = _playerStatus.Deck.FirstOrDefault();
-                    if (tmpCard == null)
-                    {
-                        break;
-                    }
-                    _playerStatus.Deck.Remove(tmpCard);
-                    _playerStatus.Hands.Add(tmpCard);
+                    Draw draw = new Draw;
+                    draw(_playerStatus);
                 }
 
                 // 1. アクション
@@ -138,6 +134,7 @@ namespace ConsoleApp1
             Console.WriteLine($"残り山枚数：{_allResult.Average(x => x.Deck.Count)}");
         }
     }
+    
 
     // TODO : あとでちゃんとファイルに移す
     public class PlayerStatus
@@ -152,6 +149,7 @@ namespace ConsoleApp1
         public List<ICardInfo> Discard { get; set; }
     }
 }
+
 public class NewBehaviourScript : MonoBehaviour
 {
     // Start is called before the first frame update
