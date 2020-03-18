@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace ConsoleApp1.CardInfos
 {
     /// <summary>

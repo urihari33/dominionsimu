@@ -6,15 +6,17 @@ using ConsoleApp1.CardInfos;
 using ConsoleApp1.Params;
 using System;
 using ConsoleApp1.CardEffects;
+using ConsoleApp1;
 
 namespace ConsoleApp1
 {
-    class Program
+    public class Program :MonoBehaviour
     {
-        static void Main(string[] args)
+        public void Main()//保存用static void Main(string[] args)//static入れると動かないので抜いた
         {
+            Debug.Log("sucsess call");
             var service = new MainService();
-
+            
             // TODO : 実行時にユーザーが画面で指定する情報
             var param = new SimulationParam()
             {
@@ -45,8 +47,8 @@ namespace ConsoleApp1
 
             service.Exec(param);
 
-            Console.WriteLine("終了。Press Any Key.");
-            Console.ReadKey();
+            Debug.Log("終了。Press Any Key.");
+            //Console.ReadKey();
         }
     }
 
@@ -81,8 +83,8 @@ namespace ConsoleApp1
                 // デッキからランダムで5枚引く
                 for (int j = 0; j < 5; j++)
                 {
-                    Draw draw = new Draw;
-                    draw(_playerStatus);
+                    Draw draw = new Draw(_playerStatus);
+
                 }
 
                 // 1. アクション
@@ -124,43 +126,34 @@ namespace ConsoleApp1
                 // 欲しい情報書き出し
                 if (param.IsShowAllResult)
                 {
-                    Console.WriteLine($"{i + 1}回目：Coin {_playerStatus.Coin}, 残り山札 {_playerStatus.Deck.Count}");
+                    Debug.Log($"{i + 1}回目：Coin {_playerStatus.Coin}, 残り山札 {_playerStatus.Deck.Count}");
                 }
                 _allResult.Add(_playerStatus);
             }
 
-            Console.WriteLine("-----------------------------------");
-            Console.WriteLine($"平均金量：{_allResult.Average(x => x.Coin).ToString("0.###")}");
-            Console.WriteLine($"残り山枚数：{_allResult.Average(x => x.Deck.Count)}");
+            Debug.Log("-----------------------------------");
+            Debug.Log($"平均金量：{_allResult.Average(x => x.Coin).ToString("0.###")}");
+            Debug.Log($"残り山枚数：{_allResult.Average(x => x.Deck.Count)}");
         }
     }
-    
 
-    // TODO : あとでちゃんとファイルに移す
-    public class PlayerStatus
-    {
-        public int Action { get; set; }
-        public int Coin { get; set; }
-        public int Buy { get; set; }
 
-        public List<ICardInfo> Deck { get; set; }
-        public List<ICardInfo> Hands { get; set; }
-        public List<ICardInfo> Played { get; set; }
-        public List<ICardInfo> Discard { get; set; }
-    }
+
 }
-
-public class NewBehaviourScript : MonoBehaviour
+// TODO : あとでちゃんとファイルに移す
+public class PlayerStatus
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int Action { get; set; }
+    public int Coin { get; set; }
+    public int Buy { get; set; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public List<ICardInfo> Deck { get; set; }
+    public List<ICardInfo> Hands { get; set; }
+    public List<ICardInfo> Played { get; set; }
+    public List<ICardInfo> Discard { get; set; }
 }
+
+        
+
+
+

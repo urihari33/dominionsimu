@@ -24,12 +24,12 @@ namespace ConsoleApp1
         Night = 1 << 4
     }
 }
-public class Cardtyoe : MonoBehaviour
+public class Cardtype : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log("hello");
     }
 
     // Update is called once per frame
@@ -37,4 +37,5 @@ public class Cardtyoe : MonoBehaviour
     {
         
     }
+    
 }
