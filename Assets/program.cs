@@ -5,6 +5,7 @@ using System.Linq;
 using ConsoleApp1.CardInfos;
 using ConsoleApp1.Params;
 using System;
+using UnityEngine.UI;
 using ConsoleApp1.CardEffects;
 using ConsoleApp1;
 
@@ -12,38 +13,43 @@ namespace ConsoleApp1
 {
     public class Program :MonoBehaviour
     {
+        //オブジェクトと結びつける
+        public InputField NumCopper;
+
+        private void Start()
+        {
+            //コンポーネントを使えるようにする。
+            NumCopper = GetComponent<InputField>();
+        }
+
         public void Main()//保存用static void Main(string[] args)//static入れると動かないので抜いた
         {
             Debug.Log("sucsess call");
             var service = new MainService();
-            
+
             // TODO : 実行時にユーザーが画面で指定する情報
             var param = new SimulationParam()
             {
-                Deck = new ICardInfo[]
+                
+                Deck = new ICardInfo[]//ここ何してるかわからない
                 {
-                    new Copper(),
-                    new Copper(),
-                    new Copper(),
-                    new Copper(),
-                    new Copper(),
-                    new Copper(),
-                    new Copper(),
-                    new Estate(),
-                    new Estate(),
-                    new Estate(),
-                    new Smithy() { Priority = 1 },
-                    new Smithy() { Priority = 1 },
-                    new Smithy() { Priority = 1 },
-                    new Village() { Priority = 2 },
-                    new Village() { Priority = 2 },
-                    new Village() { Priority = 2 },
-                    new Village() { Priority = 2 },
-                    new Village() { Priority = 2 },
+                    //銅貨をデッキに入れる
+                    
+                    //new Village() { Priority = 2 },
                 },
                 Count = 20,
                 IsShowAllResult = true
             };
+            //やりたいことの雰囲気
+            int _numCopper = 0;
+                        
+            _numCopper=  int.Parse(NumCopper.text);
+            
+            for(int i = 0; i < _numCopper; i++)
+            {
+                var _copper = new Copper();
+                param.Deck.Append(_copper);
+            }
 
             service.Exec(param);
 
