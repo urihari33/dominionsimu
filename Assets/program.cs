@@ -22,7 +22,7 @@ namespace ConsoleApp1
             NumCopper = GetComponent<InputField>();
         }
 
-        public void Main()//保存用static void Main(string[] args)//static入れると動かないので抜いた
+        public void Main()//変更前static void Main(string[] args)//static入れると動かないので抜いた
         {
             Debug.Log("sucsess call");
             var service = new MainService();
@@ -41,15 +41,18 @@ namespace ConsoleApp1
                 IsShowAllResult = true
             };
             //やりたいことの雰囲気
-            int _numCopper = 0;
+            //int _numCopper = 0;
                         
-            _numCopper=  int.Parse(NumCopper.text);
+            int _numCopper=  int.Parse(NumCopper.text);
             
             for(int i = 0; i < _numCopper; i++)
             {
                 var _copper = new Copper();
                 param.Deck.Append(_copper);
+                Debug.Log(i);//ここまではできてる
+
             }
+
 
             service.Exec(param);
 
@@ -92,6 +95,8 @@ namespace ConsoleApp1
                     Draw draw = new Draw(_playerStatus);
 
                 }
+                
+
 
                 // 1. アクション
                 // TBD
@@ -105,7 +110,7 @@ namespace ConsoleApp1
 
                     if (param.IsShowAllResult)
                     {
-                        Console.Write($"{tmpCard.Name},");
+                        Debug.Log($"{tmpCard.Name},");
                     }
                     // TODO : IActionCardにCast出来ない場合の例外処理
                     _playerStatus.Action--;
@@ -143,23 +148,25 @@ namespace ConsoleApp1
         }
     }
 
+    // TODO : あとでちゃんとファイルに移す
+    public class PlayerStatus
+    {
+        public int Action { get; set; }
+        public int Coin { get; set; }
+        public int Buy { get; set; }
+
+        public List<ICardInfo> Deck { get; set; }
+        public List<ICardInfo> Hands { get; set; }
+        public List<ICardInfo> Played { get; set; }
+        public List<ICardInfo> Discard { get; set; }
+    }
+
+
 
 
 }
-// TODO : あとでちゃんとファイルに移す
-public class PlayerStatus
-{
-    public int Action { get; set; }
-    public int Coin { get; set; }
-    public int Buy { get; set; }
 
-    public List<ICardInfo> Deck { get; set; }
-    public List<ICardInfo> Hands { get; set; }
-    public List<ICardInfo> Played { get; set; }
-    public List<ICardInfo> Discard { get; set; }
-}
 
-        
 
 
 
