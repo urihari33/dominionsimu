@@ -13,9 +13,13 @@ namespace ConsoleApp1.CardEffects
         public PlayerStatus ps;
         public Draw(PlayerStatus ps)//コンストラクタを
         {
-            var tmpCard = ps.Deck.FirstOrDefault(); //TODO引けなかったときの処理が未実装       
-            ps.Deck.Remove(tmpCard);
-            ps.Hands.Add(tmpCard);
+            var tmpCard = ps.Deck.FirstOrDefault(); /
+            if(tmpCard != null)
+            {
+                ps.Deck.Remove(tmpCard);
+                ps.Hands.Add(tmpCard);
+            }
+            
         }
     }
     

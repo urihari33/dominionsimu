@@ -95,6 +95,7 @@ namespace ConsoleApp1
                     Draw draw = new Draw(_playerStatus);
 
                 }
+                Debug.Log("draw complete");
                 
 
 
@@ -107,7 +108,7 @@ namespace ConsoleApp1
                     {
                         break;
                     }
-
+                    
                     if (param.IsShowAllResult)
                     {
                         Debug.Log($"{tmpCard.Name},");
