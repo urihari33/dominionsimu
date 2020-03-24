@@ -13,7 +13,7 @@ namespace ConsoleApp1.CardEffects
         public PlayerStatus ps;
         public Draw(PlayerStatus ps)//コンストラクタを
         {
-            var tmpCard = ps.Deck.FirstOrDefault(); /
+            var tmpCard = ps.Deck.FirstOrDefault(); 
             if(tmpCard != null)
             {
                 ps.Deck.Remove(tmpCard);

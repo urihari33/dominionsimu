@@ -95,7 +95,7 @@ namespace ConsoleApp1
                     Draw draw = new Draw(_playerStatus);
 
                 }
-                Debug.Log("draw complete");
+                Debug.Log($"hand num = { _playerStatus.Hands.Count}");//手札は引けていることが確認
                 
 
 
