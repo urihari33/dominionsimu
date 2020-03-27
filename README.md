@@ -1,2 +1,2 @@
 # dominionsimu
-Assets/simulate.cs が今編集中のファイルです。
+ドミニオンの確率計算。
