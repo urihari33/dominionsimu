@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace ConsoleApp1.CardInfos
 {
+    [Expansion("basic")]
     public class Smithy : ICardInfo, IActionCard
     {
         public string Name => "鍛冶屋";

@@ -25,34 +25,40 @@ namespace ConsoleApp1
         public void Main()//変更前static void Main(string[] args)//static入れると動かないので抜いた
         {
             Debug.Log("sucsess call");
+            
             var service = new MainService();
 
             // TODO : 実行時にユーザーが画面で指定する情報
             var param = new SimulationParam()
             {
                 
-                Deck = new ICardInfo[]//ここ何してるかわからない
-                {
-                    //銅貨をデッキに入れる
+                //Deck = new ICardInfo[]//IEne...インスタンスの生成
+                //{
                     
-                    //new Village() { Priority = 2 },
-                },
+                    
+                //    //new Village() { Priority = 2 },
+                //},
                 Count = 20,
-                IsShowAllResult = true
+                IsShowAllResult = false
             };
             //やりたいことの雰囲気
-            //int _numCopper = 0;
-                        
-            int _numCopper=  int.Parse(NumCopper.text);
-            
-            for(int i = 0; i < _numCopper; i++)
-            {
-                var _copper = new Copper();
-                param.Deck.Append(_copper);
-                Debug.Log(i);//ここまではできてる
+                                    
+            int numCopper=  int.Parse(NumCopper.text);
 
-            }
+            var deck = new List<ICardInfo>();
 
+            //for (int i = 0; i < _numCopper; i++)
+            //{
+            //    var _copper = new Copper();
+            //    deck.Add(_copper);
+
+            //    Debug.Log(i);//ここまではできてる
+
+            //}
+            deck.AddRange(Enumerable.Repeat(new Copper(), numCopper));
+            param.Deck = deck;
+
+            //param.Deck = Enumerable.Repeat(new Copper(), numCopper);
 
             service.Exec(param);
 
@@ -95,7 +101,7 @@ namespace ConsoleApp1
                     Draw draw = new Draw(_playerStatus);
 
                 }
-                Debug.Log($"hand num = { _playerStatus.Hands.Count}");//手札は引けていることが確認
+                //Debug.Log($"hand num = { _playerStatus.Hands.Count}");//手札は引けていることが確認
                 
 
 
