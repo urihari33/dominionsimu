@@ -16,16 +16,17 @@ namespace ConsoleApp1
         //オブジェクトと結びつける
         public InputField NumCopper;
 
-        private void Start()
+        void Start()
         {
             //コンポーネントを使えるようにする。
-            NumCopper = GetComponent<InputField>();
+            //NumCopper = GetComponent<InputField>();
         }
 
-        public void Main()//変更前static void Main(string[] args)//static入れると動かないので抜いた
+        public void OnClick()//変更前static void Main(string[] args)//static入れると動かないので抜いた
         {
             Debug.Log("sucsess call");
-            
+            NumCopper = NumCopper.GetComponent<InputField>();
+
             var service = new MainService();
 
             // TODO : 実行時にユーザーが画面で指定する情報
@@ -52,7 +53,7 @@ namespace ConsoleApp1
             //    var _copper = new Copper();
             //    deck.Add(_copper);
 
-            //    Debug.Log(i);//ここまではできてる
+            //    Debug.Log(i);
 
             //}
             deck.AddRange(Enumerable.Repeat(new Copper(), numCopper));
