@@ -15,6 +15,7 @@ namespace ConsoleApp1
     {
         //オブジェクトと結びつける
         public InputField NumCopper;
+        public InputField NumSilver;
 
         void Start()
         {
@@ -26,6 +27,7 @@ namespace ConsoleApp1
         {
             Debug.Log("sucsess call");
             NumCopper = NumCopper.GetComponent<InputField>();
+            NumSilver = NumSilver.GetComponent<InputField>();
 
             var service = new MainService();
 
@@ -35,8 +37,7 @@ namespace ConsoleApp1
                 
                 //Deck = new ICardInfo[]//IEne...インスタンスの生成
                 //{
-                    
-                    
+                                        
                 //    //new Village() { Priority = 2 },
                 //},
                 Count = 20,
@@ -45,6 +46,7 @@ namespace ConsoleApp1
             //やりたいことの雰囲気
                                     
             int numCopper=  int.Parse(NumCopper.text);
+            int numSilver = int.Parse(NumSilver.text);
 
             var deck = new List<ICardInfo>();
 
@@ -57,8 +59,10 @@ namespace ConsoleApp1
 
             //}
             deck.AddRange(Enumerable.Repeat(new Copper(), numCopper));
+            deck.AddRange(Enumerable.Repeat(new Silver(), numSilver));
+            //Debug.Log(deck.Count);
             param.Deck = deck;
-
+            
             //param.Deck = Enumerable.Repeat(new Copper(), numCopper);
 
             service.Exec(param);
@@ -102,8 +106,8 @@ namespace ConsoleApp1
                     Draw draw = new Draw(_playerStatus);
 
                 }
-                //Debug.Log($"hand num = { _playerStatus.Hands.Count}");//手札は引けていることが確認
-                
+                //Debug.Log($"hand num = { _playerStatus.Hands.Count}");
+
 
 
                 // 1. アクション
@@ -115,7 +119,7 @@ namespace ConsoleApp1
                     {
                         break;
                     }
-                    
+
                     if (param.IsShowAllResult)
                     {
                         Debug.Log($"{tmpCard.Name},");
