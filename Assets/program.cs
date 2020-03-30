@@ -13,21 +13,19 @@ namespace ConsoleApp1
 {
     public class Program :MonoBehaviour
     {
-        //オブジェクトと結びつける
-        public InputField NumCopper;
-        public InputField NumSilver;
+        //public GameObject deckbuilder;
+        
 
         void Start()
         {
-            //コンポーネントを使えるようにする。
-            //NumCopper = GetComponent<InputField>();
+            
+
         }
 
         public void OnClick()//変更前static void Main(string[] args)//static入れると動かないので抜いた
         {
             Debug.Log("sucsess call");
-            NumCopper = NumCopper.GetComponent<InputField>();
-            NumSilver = NumSilver.GetComponent<InputField>();
+            
 
             var service = new MainService();
 
@@ -44,24 +42,10 @@ namespace ConsoleApp1
                 IsShowAllResult = false
             };
             //やりたいことの雰囲気
-                                    
-            int numCopper=  int.Parse(NumCopper.text);
-            int numSilver = int.Parse(NumSilver.text);
 
-            var deck = new List<ICardInfo>();
 
-            //for (int i = 0; i < _numCopper; i++)
-            //{
-            //    var _copper = new Copper();
-            //    deck.Add(_copper);
-
-            //    Debug.Log(i);
-
-            //}
-            deck.AddRange(Enumerable.Repeat(new Copper(), numCopper));
-            deck.AddRange(Enumerable.Repeat(new Silver(), numSilver));
             //Debug.Log(deck.Count);
-            param.Deck = deck;
+            BuildDeck buildDeck = GameObject.Find("DeckBuilder").GetComponent < BuildDeck >();
             
             //param.Deck = Enumerable.Repeat(new Copper(), numCopper);
 

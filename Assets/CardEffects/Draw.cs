@@ -5,24 +5,33 @@ using System.Linq;
 using ConsoleApp1.CardInfos;
 using ConsoleApp1.Params;
 using ConsoleApp1;
+using System;
 
-
-namespace ConsoleApp1
+namespace ConsoleApp1.CardEffects
 {
     class Draw
     {
         public PlayerStatus ps;
-       
-
-        public Draw(PlayerStatus ps)//コンストラクタを
+        public Draw(PlayerStatus ps)//コンストラクタを 
         {
-            this.ps = ps;
-            var tmpCard = ps.Deck.FirstOrDefault(); //TODO引けなかったときの処理が未実装       
-            ps.Deck.Remove(tmpCard);
-            ps.Hands.Add(tmpCard);
-        }
+            if(ps.Deck.Count == 0)
+            {
+                ps.Deck = ps.Discard.OrderBy(x => Guid.NewGuid()).ToList(); ;
+                ps.Discard.Clear ();
+            }
 
-        
+            var tmpCard = ps.Deck.FirstOrDefault();
+            if (tmpCard != null)//
+            {
+                ps.Deck.Remove(tmpCard);
+                ps.Hands.Add(tmpCard);
+            }
+
+
+
+
+
+        }
     }
     
         
